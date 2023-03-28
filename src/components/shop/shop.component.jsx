@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect} from "react";
 import { connect } from "react-redux";
 import { Route } from "react-router-dom";
 import { selectIsCollectionFetching, selectIsCollectionsLoaded } from "../../redux/shop/shop.selectors";
@@ -14,18 +14,14 @@ import { Connect } from "react-redux";
 
 
 
-class ShopPage extends React.Component{
+const ShopPage = ({ fetchCollectionsStart, match }) =>  {
  
-  
-
-  componentDidMount() {
-    const { fetchCollectionsStart } = this.props;
-    fetchCollectionsStart();
-  }
-  
-  render() {
-    const {match} = this.props;
-    
+ useEffect(() => {
+  fetchCollectionsStart();
+ }, [fetchCollectionsStart] );
+ 
+ 
+ 
     return (  
     <div className='shop-page'>
       <Route exact path={`${match.path}`} 
@@ -37,7 +33,7 @@ class ShopPage extends React.Component{
     </div> 
     );
   }
-}
+
 
  
 const mapDispatchToProps = dispatch => ({
